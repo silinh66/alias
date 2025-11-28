@@ -57,13 +57,13 @@ exports.getPostBySlug = async (req, res) => {
 };
 
 exports.createPost = async (req, res) => {
-    const { title, slug, excerpt, content, thumbnail_url, category_id } = req.body;
+    const { title, slug, excerpt, content, thumbnail_url, category_id, pdf_url } = req.body;
     const author_id = req.userId;
 
     try {
         const [result] = await db.query(
-            'INSERT INTO posts (title, slug, excerpt, content, thumbnail_url, category_id, author_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [title, slug, excerpt, content, thumbnail_url, category_id, author_id]
+            'INSERT INTO posts (title, slug, excerpt, content, thumbnail_url, category_id, author_id, pdf_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [title, slug, excerpt, content, thumbnail_url, category_id, author_id, pdf_url]
         );
         res.status(201).json({ id: result.insertId, message: 'Post created' });
     } catch (err) {
@@ -72,13 +72,13 @@ exports.createPost = async (req, res) => {
 };
 
 exports.updatePost = async (req, res) => {
-    const { title, slug, excerpt, content, thumbnail_url, category_id } = req.body;
+    const { title, slug, excerpt, content, thumbnail_url, category_id, pdf_url } = req.body;
     const { id } = req.params;
 
     try {
         await db.query(
-            'UPDATE posts SET title = ?, slug = ?, excerpt = ?, content = ?, thumbnail_url = ?, category_id = ? WHERE id = ?',
-            [title, slug, excerpt, content, thumbnail_url, category_id, id]
+            'UPDATE posts SET title = ?, slug = ?, excerpt = ?, content = ?, thumbnail_url = ?, category_id = ?, pdf_url = ? WHERE id = ?',
+            [title, slug, excerpt, content, thumbnail_url, category_id, pdf_url, id]
         );
         res.json({ message: 'Post updated' });
     } catch (err) {

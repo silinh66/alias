@@ -28,13 +28,26 @@ const PostDetail = () => {
     if (!post) return <div>Post not found</div>;
 
     return (
-        <div id="page" class="single-page">
-            <div id="content" class="article">
-                <article class="post single-post">
-                    <h1 class="title single-title">{post.title}</h1>
-                    <div class="post-content">
+        <div id="page" className="single-page">
+            <div id="content" className="article">
+                <article className="post single-post">
+                    <h1 className="title single-title">{post.title}</h1>
+                    <div className="post-content">
                         {parse(post.content)}
                     </div>
+                    {post.pdf_url && (
+                        <div style={{ marginTop: '30px', height: '100vh' }}>
+                            <iframe
+                                src={`${post.pdf_url}#toolbar=0&navpanes=0&view=FitH`}
+                                width="100%"
+                                height="100%"
+                                style={{ border: 'none', overflow: 'hidden' }}
+                                scrolling="no"
+                            >
+                                This browser does not support PDFs. Please download the PDF to view it: <a href={post.pdf_url}>Download PDF</a>
+                            </iframe>
+                        </div>
+                    )}
                 </article>
             </div>
             <Sidebar />

@@ -15,6 +15,7 @@ const PostEditor = () => {
     const [content, setContent] = useState('');
     const [thumbnail, setThumbnail] = useState(null);
     const [thumbnailUrl, setThumbnailUrl] = useState('');
+    const [pdfUrl, setPdfUrl] = useState('');
     const [categoryId, setCategoryId] = useState('');
     const [categories, setCategories] = useState([]);
 
@@ -43,6 +44,7 @@ const PostEditor = () => {
                         setExcerpt(post.excerpt);
                         setContent(post.content);
                         setThumbnailUrl(post.thumbnail_url);
+                        setPdfUrl(post.pdf_url || '');
                         setCategoryId(post.category_id);
                     }
                 } catch (err) {
@@ -53,10 +55,10 @@ const PostEditor = () => {
         }
     }, [id, isEdit]);
 
-    const handleImageUpload = async (e) => {
+    const handleFileUpload = async (e, type) => {
         const file = e.target.files[0];
         const formData = new FormData();
-        formData.append('image', file);
+        formData.append('file', file);
 
         try {
             const token = localStorage.getItem('token');
@@ -66,17 +68,21 @@ const PostEditor = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setThumbnailUrl(res.data.url);
+            if (type === 'image') {
+                setThumbnailUrl(res.data.url);
+            } else if (type === 'pdf') {
+                setPdfUrl(res.data.url);
+            }
         } catch (err) {
             console.error(err);
-            alert('Image upload failed');
+            alert(`${type === 'image' ? 'Image' : 'PDF'} upload failed`);
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        const data = { title, slug, excerpt, content, thumbnail_url: thumbnailUrl, category_id: categoryId };
+        const data = { title, slug, excerpt, content, thumbnail_url: thumbnailUrl, category_id: categoryId, pdf_url: pdfUrl };
 
         try {
             if (isEdit) {
@@ -117,8 +123,13 @@ const PostEditor = () => {
                 </div>
                 <div style={{ marginBottom: '15px' }}>
                     <label>Thumbnail</label>
-                    <input type="file" onChange={handleImageUpload} />
+                    <input type="file" onChange={(e) => handleFileUpload(e, 'image')} />
                     {thumbnailUrl && <img src={thumbnailUrl} alt="Thumbnail" style={{ width: '100px', marginTop: '10px' }} />}
+                </div>
+                <div style={{ marginBottom: '15px' }}>
+                    <label>PDF File</label>
+                    <input type="file" accept=".pdf" onChange={(e) => handleFileUpload(e, 'pdf')} />
+                    {pdfUrl && <div style={{ marginTop: '10px' }}><a href={pdfUrl} target="_blank" rel="noopener noreferrer">View Uploaded PDF</a></div>}
                 </div>
                 <div style={{ marginBottom: '15px' }}>
                     <label>Excerpt</label>
