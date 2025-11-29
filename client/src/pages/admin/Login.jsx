@@ -26,7 +26,7 @@ const Login = () => {
         <div style={{ maxWidth: '400px', margin: '100px auto', padding: '20px', border: '1px solid #ccc' }}>
             <h2>Admin Login</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: '10px' }}>
                     <label>Username</label>
                     <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} style={{ width: '100%', padding: '8px' }} />
