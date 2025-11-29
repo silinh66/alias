@@ -59,6 +59,13 @@ const Home = () => {
                                     <span className="entry-meta">
                                         {new Date(post.created_at).toLocaleDateString('vi-VN')}
                                     </span>
+                                    <div className="post-thumbnail">
+                                        {post.thumbnail_url && (
+                                            <Link to={`/post/${post.slug}`}>
+                                                <img src={post.thumbnail_url.startsWith('http') ? post.thumbnail_url : API_URL + post.thumbnail_url} alt={post.title} />
+                                            </Link>
+                                        )}
+                                    </div>
                                     <div className="post-content">
                                         {post.excerpt}
                                     </div>

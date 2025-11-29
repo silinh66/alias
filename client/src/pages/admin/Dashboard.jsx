@@ -50,6 +50,7 @@ const Dashboard = () => {
                 <thead>
                     <tr>
                         <th style={{ border: '1px solid #ccc', padding: '10px' }}>ID</th>
+                        <th style={{ border: '1px solid #ccc', padding: '10px' }}>Thumbnail</th>
                         <th style={{ border: '1px solid #ccc', padding: '10px' }}>Title</th>
                         <th style={{ border: '1px solid #ccc', padding: '10px' }}>Actions</th>
                     </tr>

@@ -126,12 +126,12 @@ const PostEditor = () => {
                 <div style={{ marginBottom: '15px' }}>
                     <label>Thumbnail</label>
                     <input type="file" onChange={(e) => handleFileUpload(e, 'image')} />
-                    {thumbnailUrl && <img src={thumbnailUrl} alt="Thumbnail" style={{ width: '100px', marginTop: '10px' }} />}
+                    {thumbnailUrl && <img src={thumbnailUrl.startsWith('http') ? thumbnailUrl : API_URL + thumbnailUrl} alt="Thumbnail" style={{ width: '100px', marginTop: '10px' }} />}
                 </div>
                 <div style={{ marginBottom: '15px' }}>
                     <label>PDF File</label>
                     <input type="file" accept=".pdf" onChange={(e) => handleFileUpload(e, 'pdf')} />
-                    {pdfUrl && <div style={{ marginTop: '10px' }}><a href={pdfUrl} target="_blank" rel="noopener noreferrer">View Uploaded PDF</a></div>}
+                    {pdfUrl && <div style={{ marginTop: '10px' }}><a href={pdfUrl.startsWith('http') ? pdfUrl : API_URL + pdfUrl} target="_blank" rel="noopener noreferrer">View Uploaded PDF</a></div>}
                 </div>
                 <div style={{ marginBottom: '15px' }}>
                     <label>Excerpt</label>

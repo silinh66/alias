@@ -14,7 +14,7 @@ const PostDetail = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const res = await axios.get(`${API_URL} /api/posts / ${slug} `);
+                const res = await axios.get(`${API_URL}/api/posts/${slug}`);
                 setPost(res.data);
                 setLoading(false);
             } catch (err) {
@@ -40,7 +40,7 @@ const PostDetail = () => {
                     {post.pdf_url && (
                         <div style={{ marginTop: '30px', height: '100vh' }}>
                             <iframe
-                                src={`${post.pdf_url} #toolbar = 0 & navpanes=0 & view=FitH`}
+                                src={`${post.pdf_url.startsWith('http') ? post.pdf_url : API_URL + post.pdf_url}#toolbar=0&navpanes=0&view=FitH`}
                                 width="100%"
                                 height="100%"
                                 style={{ border: 'none', overflow: 'hidden' }}
