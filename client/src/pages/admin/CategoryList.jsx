@@ -15,7 +15,7 @@ const CategoryList = () => {
 
         const fetchCategories = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/categories');
+                const res = await axios.get(`${API_URL}/api/categories`);
                 setCategories(res.data.categories);
             } catch (err) {
                 console.error(err);
@@ -29,7 +29,7 @@ const CategoryList = () => {
         if (!window.confirm('Are you sure?')) return;
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5000/api/categories/${id}`, {
+            await axios.delete(`${API_URL}/api/categories/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setCategories(categories.filter(cat => cat.id !== id));

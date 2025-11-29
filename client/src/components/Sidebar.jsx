@@ -2,13 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import { API_URL } from '../config';
+
 const Sidebar = () => {
     const [categories, setCategories] = React.useState([]);
 
     React.useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/categories');
+                const res = await axios.get(`${API_URL}/api/categories`);
                 setCategories(res.data.categories || []);
             } catch (err) {
                 console.error('Error fetching categories:', err);

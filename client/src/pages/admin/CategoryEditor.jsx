@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { API_URL } from '../../config';
+
 const CategoryEditor = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -14,7 +16,7 @@ const CategoryEditor = () => {
         if (isEdit) {
             const fetchCategory = async () => {
                 try {
-                    const res = await axios.get(`http://localhost:5000/api/categories/${id}`);
+                    const res = await axios.get(`${API_URL}/api/categories/${id}`);
                     setName(res.data.name);
                     setSlug(res.data.slug);
                 } catch (err) {
@@ -32,11 +34,11 @@ const CategoryEditor = () => {
 
         try {
             if (isEdit) {
-                await axios.put(`http://localhost:5000/api/categories/${id}`, data, {
+                await axios.put(`${API_URL}/api/categories/${id}`, data, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } else {
-                await axios.post('http://localhost:5000/api/categories', data, {
+                await axios.post(`${API_URL}/api/categories`, data, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }

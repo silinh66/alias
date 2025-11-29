@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
+import { API_URL } from '../config';
 
 const Header = () => {
     const location = useLocation();
@@ -10,7 +11,7 @@ const Header = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/categories');
+                const res = await axios.get(`${API_URL}/api/categories`);
                 setCategories(res.data.categories || []);
             } catch (err) {
                 console.error('Error fetching categories:', err);

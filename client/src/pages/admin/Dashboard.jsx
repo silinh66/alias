@@ -15,7 +15,7 @@ const Dashboard = () => {
 
         const fetchPosts = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/posts');
+                const res = await axios.get(`${API_URL}/api/posts`);
                 setPosts(res.data.posts);
             } catch (err) {
                 console.error(err);
@@ -29,7 +29,7 @@ const Dashboard = () => {
         if (!window.confirm('Are you sure?')) return;
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5000/api/posts/${id}`, {
+            await axios.delete(`${API_URL}/api/posts/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPosts(posts.filter(post => post.id !== id));

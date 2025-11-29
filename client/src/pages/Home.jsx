@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
+import { API_URL } from '../config';
+
 const Home = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ const Home = () => {
         const fetchPosts = async () => {
             setLoading(true);
             try {
-                let url = `http://localhost:5000/api/posts?page=${page}&limit=10`;
+                let url = `${API_URL}/api/posts?page=${page}&limit=10`;
                 if (slug) {
                     url += `&category_slug=${slug}`;
                 }

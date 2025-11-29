@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 
+import { API_URL } from '../../config';
+
 const PostEditor = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -22,7 +24,7 @@ const PostEditor = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/categories');
+                const res = await axios.get(`${API_URL}/api/categories`);
                 setCategories(res.data.categories);
                 if (res.data.categories.length > 0 && !categoryId) {
                     setCategoryId(res.data.categories[0].id);
@@ -36,7 +38,7 @@ const PostEditor = () => {
         if (isEdit) {
             const fetchPost = async () => {
                 try {
-                    const res = await axios.get('http://localhost:5000/api/posts');
+                    const res = await axios.get(`${API_URL}/api/posts`);
                     const post = res.data.posts.find(p => p.id === parseInt(id));
                     if (post) {
                         setTitle(post.title);
@@ -62,7 +64,7 @@ const PostEditor = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.post('http://localhost:5000/api/upload', formData, {
+            const res = await axios.post(`${API_URL}/api/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -86,11 +88,11 @@ const PostEditor = () => {
 
         try {
             if (isEdit) {
-                await axios.put(`http://localhost:5000/api/posts/${id}`, data, {
+                await axios.put(`${API_URL}/api/posts/${id}`, data, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } else {
-                await axios.post('http://localhost:5000/api/posts', data, {
+                await axios.post(`${API_URL}/api/posts`, data, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }
