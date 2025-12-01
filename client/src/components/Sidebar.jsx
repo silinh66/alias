@@ -50,12 +50,6 @@ const Sidebar = () => {
                             </div>
                         </form>
                     </div>
-                    <div id="block-21" className="widget widget_block">
-                        <h2 className="wp-block-heading">Liên hệ tư vấn</h2>
-                    </div>
-                    <div id="block-34" className="widget widget_block widget_text">
-                        <p>Zalo/call: 0974432893.<br />Nhóm zalo tư vấn<a href="https://zalo.me/g/0974432893">: <strong><mark style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }} className="has-inline-color has-vivid-purple-color">https://zalo.me/g/0974432893</mark></strong></a></p>
-                    </div>
                 </div>
             </div>
         </aside>

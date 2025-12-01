@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ZaloButton from './components/ZaloButton';
 import Home from './pages/Home';
 import PostDetail from './pages/PostDetail';
 import Login from './pages/admin/Login';
@@ -29,6 +30,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
+      <ZaloButton />
     </Router>
   );
 }
