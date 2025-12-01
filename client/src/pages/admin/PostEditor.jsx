@@ -103,6 +103,53 @@ const PostEditor = () => {
         }
     };
 
+    const imageHandler = () => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const token = localStorage.getItem('token');
+                const res = await axios.post(`${API_URL}/api/upload`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                const range = quillRef.current.getEditor().getSelection();
+                const link = res.data.url.startsWith('http') ? res.data.url : API_URL + res.data.url;
+                quillRef.current.getEditor().insertEmbed(range.index, 'image', link);
+            } catch (err) {
+                console.error('Image upload failed:', err);
+                alert('Image upload failed');
+            }
+        };
+    };
+
+    const modules = React.useMemo(() => ({
+        toolbar: {
+            container: [
+                [{ 'header': [1, 2, false] }],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                ['link', 'image'],
+                ['clean']
+            ],
+            handlers: {
+                image: imageHandler
+            }
+        }
+    }), []);
+
+    const quillRef = React.useRef(null);
+
     return (
         <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <h1>{isEdit ? 'Edit Post' : 'Create Post'}</h1>
@@ -139,7 +186,12 @@ const PostEditor = () => {
                 </div>
                 <div style={{ marginBottom: '15px' }}>
                     <label>Content</label>
-                    <ReactQuill value={content} onChange={setContent} />
+                    <ReactQuill
+                        ref={quillRef}
+                        value={content}
+                        onChange={setContent}
+                        modules={modules}
+                    />
                 </div>
                 <button type="submit" style={{ padding: '10px 20px', background: 'blue', color: '#fff', border: 'none' }}>Save</button>
             </form>
