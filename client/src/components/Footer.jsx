@@ -2,18 +2,14 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer id="site-footer" role="contentinfo">
-            <div className="copyrights">
-                <div className="container">
-                    <div className="row" id="copyright-note">
-                        <span>
-                            © 2025 Chứng khoán bền vững <span className="footer-info-right">
-                                | WordPress Theme by <a href="https://superbthemes.com/"> Superb WordPress Themes</a>          </span>
-                            <div className="top">
-                                <a href="#top" className="toplink">Back to Top ↑</a>
-                            </div>
-                        </span>
-                    </div>
+        <footer className="site-footer">
+            <div className="container">
+                <div className="footer-content">
+                    <h2 className="footer-title">Chứng khoán bền vững</h2>
+                    <p>Đi tìm cổ phiếu LEADER</p>
+                </div>
+                <div className="copyrights">
+                    <p>© 2025 Chứng khoán bền vững. All rights reserved.</p>
                 </div>
             </div>
         </footer>

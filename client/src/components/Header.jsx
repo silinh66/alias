@@ -27,30 +27,44 @@ const Header = () => {
     };
 
     return (
-        <header id="site-header" role="banner">
-            <div className="container clear">
-                <div className="site-branding">
-                    <h1 id="logo" className="site-title" itemProp="headline">
-                        <Link to="/">Chứng khoán bền vững</Link>
-                    </h1>
-                    <div className="site-description">Đi tìm cổ phiếu LEADER</div>
-                </div>
-            </div>
-            <div className="primary-navigation">
-                <a href="#" id="pull" className="toggle-mobile-menu">Menu</a>
-                <div className="container clear">
-                    <nav id="navigation" className="primary-navigation mobile-menu-wrapper" role="navigation">
-                        <ul id="menu-vi-mo" className="menu clearfix toggle-menu">
-                            <li className={`menu-item ${isActive('/') ? 'current-menu-item' : ''}`}><Link to="/">Trang chủ</Link></li>
+        <header className="site-header">
+            <div className="top-bar">
+                <div className="container">
+                    <nav className="main-nav">
+                        <ul>
+                            <li>
+                                <Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>Trang chủ</Link>
+                            </li>
                             {categories.map(cat => (
-                                <li key={cat.id} className={`menu-item ${isActive(`/category/${cat.slug}`) ? 'current-menu-item' : ''}`}>
-                                    <Link to={`/category/${cat.slug}`}>{cat.name}</Link>
+                                <li key={cat.id}>
+                                    <Link
+                                        to={`/category/${cat.slug}`}
+                                        className={`nav-link ${isActive(`/category/${cat.slug}`) ? 'active' : ''}`}
+                                    >
+                                        {cat.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
                     </nav>
                 </div>
             </div>
+
+            {/* Hero Section - Always visible or only on Home? Template has it big. Let's keep it global for now or check requirement. 
+                User said "change layout to match image". Image has big header. Let's put it here. */}
+            <div className="hero-section">
+                <div className="container">
+                    <div className="site-branding">
+                        <h1 className="site-title">Chứng khoán bền vững</h1>
+                        <div className="site-description">Đi tìm cổ phiếu LEADER</div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Intro Section - Only on Home Page? The image shows "So in case you were wondering..." red bar. 
+                Let's add it conditionally for Home page in Home.jsx or here? 
+                Better in Home.jsx to keep Header clean, or here if it's part of the "template header".
+                The image shows it right below the hero. Let's put it in Home.jsx for better control. */}
         </header>
     );
 };

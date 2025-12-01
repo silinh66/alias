@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+
 
 import { API_URL } from '../config';
 
@@ -40,50 +40,58 @@ const Home = () => {
     };
 
     return (
-        <div id="page" className="home-page">
-            <div id="content" className="article">
-                {slug && <h1 style={{ marginBottom: '20px', fontSize: '24px', borderBottom: '2px solid #333', paddingBottom: '10px' }}>Category: {slug}</h1>}
-                {loading ? <p>Loading...</p> : (
-                    posts.map(post => (
-                        <article key={post.id} className="post excerpt">
-                            <div className="post-blogs-container-thumbnails">
-                                <div className="featured-thumbnail-container">
-                                    <Link to={`/post/${post.slug}`} title={post.title} id="featured-thumbnail">
-                                        <div className="blog-featured-thumbnail" style={{ backgroundImage: `url(${post.thumbnail_url})` }}></div>
-                                    </Link>
-                                </div>
-                                <div className="thumbnail-post-content">
-                                    <h2 className="title">
-                                        <Link to={`/post/${post.slug}`} title={post.title} rel="bookmark">{post.title}</Link>
-                                    </h2>
-                                    <span className="entry-meta">
-                                        {new Date(post.created_at).toLocaleDateString('vi-VN')}
-                                    </span>
-                                    <div className="post-thumbnail">
-                                        {post.thumbnail_url && (
-                                            <Link to={`/post/${post.slug}`}>
-                                                <img src={post.thumbnail_url.startsWith('http') ? post.thumbnail_url : API_URL + post.thumbnail_url} alt={post.title} />
-                                            </Link>
-                                        )}
-                                    </div>
+        <div className="home-page">
+            {/* Intro Section - Red Bar from Template */}
+            {!slug && (
+                <div className="intro-section">
+                    <div className="container">
+                        <h2>So in case you were wondering what this is all about ...</h2>
+                        <p className="intro-text">
+                            Chứng khoán bền vững là nơi chia sẻ kiến thức, kinh nghiệm đầu tư và tìm kiếm những cổ phiếu LEADER trên thị trường.
+                        </p>
+                        <a href="#main-content" className="btn-primary">Khám phá ngay</a>
+                    </div>
+                </div>
+            )}
+
+            <div id="main-content" className="main-content-wrapper">
+                <div className="container">
+                    <div className="section-header">
+                        <h2>{slug ? `Danh mục: ${slug}` : 'Bài viết mới nhất'}</h2>
+                        <p>Cập nhật những thông tin thị trường mới nhất</p>
+                    </div>
+
+                    {loading ? <p style={{ textAlign: 'center' }}>Loading...</p> : (
+                        <div className="posts-grid">
+                            {posts.map(post => (
+                                <article key={post.id} className="post-card">
+                                    <Link to={`/post/${post.slug}`} className="post-thumbnail" style={{
+                                        backgroundImage: `url(${post.thumbnail_url?.startsWith('http') ? post.thumbnail_url : API_URL + post.thumbnail_url})`
+                                    }}></Link>
                                     <div className="post-content">
-                                        {post.excerpt}
+                                        <div className="post-meta">
+                                            {new Date(post.created_at).toLocaleDateString('vi-VN')}
+                                        </div>
+                                        <h3 className="post-title">
+                                            <Link to={`/post/${post.slug}`}>{post.title}</Link>
+                                        </h3>
+                                        <div className="post-excerpt">
+                                            {post.excerpt}
+                                        </div>
+                                        <Link to={`/post/${post.slug}`} className="btn-small">Xem chi tiết</Link>
                                     </div>
-                                </div>
-                            </div>
-                        </article>
-                    ))
-                )}
-                <div className="navigation pagination" role="navigation">
-                    <h2 className="screen-reader-text">Posts navigation</h2>
-                    <div className="nav-links">
-                        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} style={{ marginRight: '5px' }}>Previous</button>
-                        <span className="page-numbers current">{page} of {totalPages}</span>
-                        <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} style={{ marginLeft: '5px' }}>Next</button>
+                                </article>
+                            ))}
+                        </div>
+                    )}
+
+                    <div className="pagination">
+                        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>Previous</button>
+                        <span className="current">{page} of {totalPages}</span>
+                        <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>Next</button>
                     </div>
                 </div>
             </div>
-            <Sidebar />
         </div>
     );
 };
