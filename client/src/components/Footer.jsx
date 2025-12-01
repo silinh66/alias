@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="container">
                     <div className="row" id="copyright-note">
                         <span>
-                            © 2025 Đầu Tư Bền Vững <span className="footer-info-right">
+                            © 2025 Chứng khoán bền vững <span className="footer-info-right">
                                 | WordPress Theme by <a href="https://superbthemes.com/"> Superb WordPress Themes</a>          </span>
                             <div className="top">
                                 <a href="#top" className="toplink">Back to Top ↑</a>

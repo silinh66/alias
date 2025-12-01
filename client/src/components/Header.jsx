@@ -31,7 +31,7 @@ const Header = () => {
             <div className="container clear">
                 <div className="site-branding">
                     <h1 id="logo" className="site-title" itemProp="headline">
-                        <Link to="/">Đầu Tư Bền Vững</Link>
+                        <Link to="/">Chứng khoán bền vững</Link>
                     </h1>
                     <div className="site-description">Đi tìm cổ phiếu LEADER</div>
                 </div>
