@@ -14,7 +14,7 @@ import CategoryEditor from './pages/admin/CategoryEditor';
 function App() {
   return (
     <Router>
-      <div className="main-container">
+      <div class="main-container">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
