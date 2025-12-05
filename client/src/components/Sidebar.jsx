@@ -28,27 +28,32 @@ const Sidebar = () => {
                             <div className="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
                                 <div className="wp-block-group">
                                     <div className="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained">
-                                        <h2 className="wp-block-heading">Danh mục</h2>
+                                        <h2 className="wp-block-heading" style={{ color: 'rgb(0, 32, 64)', textTransform: 'uppercase' }}>Phân tích ngành</h2>
                                         <ul className="wp-block-categories-list wp-block-categories">
-                                            {categories.map(cat => (
-                                                <li key={cat.id} className="cat-item">
-                                                    <Link to={`/category/${cat.slug}`}>{cat.name}</Link>
-                                                </li>
-                                            ))}
+                                            {categories
+                                                .filter(cat => ![
+                                                    'Phân tích ngành',
+                                                    'Khuyến nghị cổ phiếu',
+                                                    'Vĩ mô các ngành',
+                                                    'Nghiệp vụ tại VPS',
+                                                    'Tìm đối tác',
+                                                    'Cổ phiếu chất riêng',
+                                                    'Chiến lược đầu tư',
+                                                    'Phân tích cơ bản',
+                                                    'Bài học đầu tư',
+                                                    'Mở tài khoản chứng khoán'
+                                                ].includes(cat.name))
+                                                .sort(() => Math.random() - 0.5)
+                                                .map(cat => (
+                                                    <li key={cat.id} className="cat-item">
+                                                        <Link to={`/category/${cat.slug}`} style={{ textTransform: 'uppercase' }}>{cat.name}</Link>
+                                                    </li>
+                                                ))}
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="block-2" className="widget widget_block widget_search">
-                        <form role="search" method="get" action="/" className="wp-block-search__button-outside wp-block-search__text-button wp-block-search">
-                            <label className="wp-block-search__label" htmlFor="wp-block-search__input-1">Tìm kiếm</label>
-                            <div className="wp-block-search__inside-wrapper ">
-                                <input className="wp-block-search__input" id="wp-block-search__input-1" placeholder="" type="search" name="s" required="" />
-                                <button aria-label="Tìm kiếm" className="wp-block-search__button wp-element-button" type="submit">Tìm kiếm</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>

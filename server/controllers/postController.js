@@ -47,10 +47,18 @@ exports.getPostBySlug = async (req, res) => {
             return res.status(404).json({ message: 'Post not found' });
         }
 
-        // Increment views
-        await db.query('UPDATE posts SET views = views + 1 WHERE id = ?', [posts[0].id]);
+        const post = posts[0];
 
-        res.json(posts[0]);
+        // Increment views
+        await db.query('UPDATE posts SET views = views + 1 WHERE id = ?', [post.id]);
+
+        // Fetch related posts (same category, excluding current post, limit 3)
+        const [relatedPosts] = await db.query(
+            'SELECT id, title, slug, thumbnail_url FROM posts WHERE category_id = ? AND id != ? ORDER BY RAND() LIMIT 3',
+            [post.category_id, post.id]
+        );
+
+        res.json({ ...post, relatedPosts });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

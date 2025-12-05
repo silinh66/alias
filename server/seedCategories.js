@@ -2,12 +2,30 @@ const db = require('./config/db');
 const slugify = require('slugify');
 
 const categories = [
-    'Phân tích ngành',
+    'Bài học đầu tư',
+    'Bài học đầu tư',
+    'Bất động sản KCN',
+    'Chiến lược đầu tư',
+    'Cổ phiếu chất riêng',
     'Khuyến nghị cổ phiếu',
-    'Vĩ mô các ngành',
-    'Đầu tư BĐS 2025 – 2026',
+    'Năng lượng',
+    'Ngành bảo hiểm',
+    'Ngành bất động sản',
+    'Ngành cao su',
+    'Ngành chứng khoán',
+    'Ngành dầu khí',
+    'Ngành dệt may',
+    'Ngành ngân hàng',
+    'Ngành phân đạm',
+    'Ngành thép',
+    'Ngành vận tải – cảng biển',
+    'Ngành xây dựng – VLXĐ',
+    'Nghiệp vụ tại VPS',
+    'Phân tích cơ bản',
+    'Phân tích ngành',
+    'Thủy sản',
     'Tìm đối tác',
-    'Nghiệp vụ tại VPS'
+    'Vĩ mô các ngành'
 ];
 
 const seedCategories = async () => {

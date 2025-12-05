@@ -1,0 +1,55 @@
+{
+  "hash": "c0491bfa",
+  "configHash": "62b1aa3e",
+  "lockfileHash": "71b808f2",
+  "browserHash": "e10a4d1b",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "2a0ae385",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "7ac87ea3",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "2d9003b0",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "75c117cd",
+      "needsInterop": false
+    },
+    "html-react-parser": {
+      "src": "../../node_modules/html-react-parser/esm/index.mjs",
+      "file": "html-react-parser.js",
+      "fileHash": "70a8c87a",
+      "needsInterop": false
+    },
+    "react-quill-new": {
+      "src": "../../node_modules/react-quill-new/lib/index.js",
+      "file": "react-quill-new.js",
+      "fileHash": "48beed0f",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-KP7BIHBJ": {
+      "file": "chunk-KP7BIHBJ.js"
+    },
+    "chunk-ULSRCYB6": {
+      "file": "chunk-ULSRCYB6.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
+}
