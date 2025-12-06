@@ -190,7 +190,7 @@ const Header = () => {
                 <div className="hero-content" style={{ flex: '1', maxWidth: '600px' }}>
                     <div className="breadcrumbs" style={{ marginBottom: '10px', marginTop: '40px', fontSize: '14px', color: '#ccc', display: 'flex', alignItems: 'center', gap: '5px' }}>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/2048px-Icon_of_Zalo.svg.png" alt="Zalo hỗ trợ" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
-                        Zalo hỗ trợ: 0395.966.899
+                        Zalo hỗ trợ: 0395.888.619
                     </div>
                     <div className="subheading" style={{ fontSize: '16px', color: '#8faecb', marginBottom: '80px', display: 'flex', alignItems: 'center', gap: '5px' }}>
                         <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Youtube" style={{ width: '20px', height: '15px', marginRight: '5px' }} />Youtube: Chứng khoán bền vững

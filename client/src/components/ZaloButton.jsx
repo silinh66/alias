@@ -3,7 +3,7 @@ import React from 'react';
 const ZaloButton = () => {
     return (
         <a
-            href="https://zalo.me/0395.966.899"
+            href="https://zalo.me/0395.888.619"
             target="_blank"
             rel="noopener noreferrer"
             className="zalo-button"

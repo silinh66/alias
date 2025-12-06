@@ -48,7 +48,7 @@ const Footer = () => {
                         <div className="contact-info" style={{ color: '#ccc', lineHeight: '1.8' }}>
                             <p style={{ margin: '0 0 10px' }}>chungkhoanbenvung.com@gmail.com</p>
                             <p style={{ margin: '0 0 10px' }}>sale.chungkhoanbenvung@gmail.com</p>
-                            <p style={{ margin: '0 0 10px' }}>Zalo: 0395.966.899</p>
+                            <p style={{ margin: '0 0 10px' }}>Zalo: 0395.888.619</p>
                             <p style={{ margin: '0 0 10px' }}>LK VA03A Khu đô thị Hoàng Thành Villas, Đại Mỗ, Hà Nội</p>
 
                         </div>
