@@ -91,7 +91,7 @@ const Home = () => {
                             <div className="post-blogs-container-thumbnails">
                                 <div className="featured-thumbnail-container">
                                     <Link to={`/post/${post.slug}`} title={post.title} id="featured-thumbnail">
-                                        <div className="blog-featured-thumbnail" style={{ backgroundImage: `url(${post.thumbnail_url})` }}></div>
+                                        <div className="blog-featured-thumbnail" style={{ backgroundImage: `url(${post.thumbnail_url?.startsWith('http') ? post.thumbnail_url : API_URL + post.thumbnail_url})` }}></div>
                                     </Link>
                                 </div>
                                 <div className="thumbnail-post-content">
