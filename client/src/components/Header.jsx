@@ -3,10 +3,13 @@ import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 import { API_URL } from '../config';
 import stockGirlImg from './stock_girl.png';
+import './Header.css';
+
 const Header = () => {
     const location = useLocation();
     const currentPath = location.pathname;
     const [categories, setCategories] = useState([]);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const industryAnalysisCategories = [
         'Bất động sản KCN',
@@ -43,25 +46,19 @@ const Header = () => {
         fetchCategories();
     }, []);
 
-    const CategoryLink = ({ category }) => {
-        const [isHovered, setIsHovered] = useState(false);
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
 
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+    };
+
+    const CategoryLink = ({ category }) => {
         return (
             <Link
                 to={`/category/${category.slug}`}
-                style={{
-                    color: '#fff',
-                    textDecoration: 'none',
-                    padding: '10px 20px',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    backgroundColor: isHovered ? '#2c4a6b' : 'transparent',
-                    transition: 'background-color 0.3s',
-                    borderRadius: '0px',
-                    whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                className={`category-link ${currentPath === `/category/${category.slug}` ? 'active' : ''}`}
             >
                 {category.name}
             </Link>
@@ -73,56 +70,20 @@ const Header = () => {
 
         return (
             <div
-                style={{ position: 'relative' }}
+                className="dropdown-container"
                 onMouseEnter={() => setIsOpen(true)}
                 onMouseLeave={() => setIsOpen(false)}
             >
-                <button
-                    style={{
-                        backgroundColor: isOpen ? '#2c4a6b' : 'transparent',
-                        color: '#fff',
-                        border: 'none',
-                        padding: '10px 20px',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        transition: 'background-color 0.3s',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '5px'
-                    }}
-                >
-                    {title} <span style={{ fontSize: '10px' }}>▼</span>
+                <button className={`dropdown-button ${isOpen ? 'active' : ''}`}>
+                    {title} <span className="dropdown-arrow">▼</span>
                 </button>
                 {isOpen && (
-                    <div style={{
-                        position: 'absolute',
-                        top: '100%',
-                        left: 0,
-                        backgroundColor: '#fff',
-                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                        zIndex: 1000,
-                        minWidth: '200px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: '10px 0',
-                        borderRadius: '8px', // Added border radius
-                        overflow: 'hidden' // Ensure content respects border radius
-                    }}>
+                    <div className="dropdown-content">
                         {items.sort(() => Math.random() - 0.5).map(item => (
                             <Link
                                 key={item.id}
                                 to={`/category/${item.slug}`}
-                                style={{
-                                    color: '#333',
-                                    textDecoration: 'none',
-                                    padding: '10px 20px',
-                                    fontSize: '14px',
-                                    display: 'block',
-                                    transition: 'background-color 0.2s'
-                                }}
-                                onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
-                                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                                className="dropdown-item"
                             >
                                 {item.name}
                             </Link>
@@ -147,58 +108,89 @@ const Header = () => {
         .filter(Boolean); // Remove undefined if category not found
 
     return (
-        <header id="new-header" style={{ fontFamily: 'sans-serif' }}>
+        <header id="new-header">
             {/* Top Navigation Bar */}
-            <div className="top-nav" style={{ backgroundColor: '#002040', color: '#fff', padding: '15px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="top-nav">
                 <div className="logo">
-                    <Link to="/" style={{ color: '#fff', textDecoration: 'none', fontSize: '24px', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
-                        <div style={{ border: '1px solid #fff', padding: '5px 10px', marginRight: '10px' }}>CKBV</div>
-                        <div style={{ display: 'flex', flexDirection: 'column', fontSize: '12px', lineHeight: '1.2' }}>
+                    <Link to="/" onClick={closeMobileMenu}>
+                        <div className="logo-box">CKBV</div>
+                        <div className="logo-text">
                             <span>CHỨNG KHOÁN BỀN VỮNG</span>
                         </div>
                     </Link>
                 </div>
-                <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+
+                {/* Desktop Navigation */}
+                <div className="nav-actions">
                     <DropdownMenu title="Phân tích ngành" items={groupedCategories} />
                     {otherCategories.map(category => (
                         <CategoryLink key={category.id} category={category} />
                     ))}
-                    {/* <button style={{ backgroundColor: '#2c4a6b', color: '#fff', border: 'none', padding: '10px 20px', cursor: 'pointer', fontSize: '14px', fontWeight: '500', marginLeft: '15px' }}>
-                        Programmes and courses
-                    </button> */}
-                    {/* <div className="icons" style={{ display: 'flex', gap: '20px', alignItems: 'center', fontSize: '18px' }}>
-                        <span style={{ cursor: 'pointer' }}>🔍</span>
-                    </div> */}
+                </div>
+
+                {/* Mobile Hamburger Button */}
+                <button className="hamburger-btn" onClick={toggleMobileMenu}>
+                    ☰
+                </button>
+            </div>
+
+            {/* Mobile Menu Overlay & Drawer */}
+            <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={closeMobileMenu}></div>
+            <div className={`mobile-menu-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
+                <div className="mobile-menu-header">
+                    <button className="close-btn" onClick={closeMobileMenu}>×</button>
+                </div>
+                <div className="mobile-nav-links">
+                    <div className="mobile-dropdown">
+                        <div className="mobile-dropdown-header">
+                            Phân tích ngành
+                        </div>
+                        <div className="mobile-dropdown-content">
+                            {groupedCategories.map(item => (
+                                <Link
+                                    key={item.id}
+                                    to={`/category/${item.slug}`}
+                                    className="mobile-nav-link"
+                                    onClick={closeMobileMenu}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                    {otherCategories.map(category => (
+                        <Link
+                            key={category.id}
+                            to={`/category/${category.slug}`}
+                            className="mobile-nav-link"
+                            onClick={closeMobileMenu}
+                        >
+                            {category.name}
+                        </Link>
+                    ))}
                 </div>
             </div>
 
             {/* Hero Section */}
-            <div className="hero-section" style={{ backgroundColor: '#002040', color: '#fff', padding: '60px 40px', display: 'flex', gap: '60px', alignItems: 'center' }}>
-                <div className="hero-image" style={{ flex: '0 0 400px', marginLeft: '120px' }}>
+            <div className="hero-section">
+                <div className="hero-image">
                     <img
                         src={stockGirlImg}
                         alt="Student working on laptop"
-                        style={{
-                            width: '340px', borderRadius: '4px', display: 'block',
-                            height: '320px',
-                            //reverse image
-                            transform: 'rotateY(180deg)',
-
-                        }}
                     />
                 </div>
-                <div className="hero-content" style={{ flex: '1', maxWidth: '600px' }}>
-                    <div className="breadcrumbs" style={{ marginBottom: '10px', marginTop: '40px', fontSize: '14px', color: '#ccc', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <div className="hero-content">
+                    <div className="breadcrumbs">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/2048px-Icon_of_Zalo.svg.png" alt="Zalo hỗ trợ" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
                         Zalo hỗ trợ: 0395.888.619
                     </div>
-                    <div className="subheading" style={{ fontSize: '16px', color: '#8faecb', marginBottom: '80px', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <div className="subheading">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Youtube" style={{ width: '20px', height: '15px', marginRight: '5px' }} />Youtube: Chứng khoán bền vững
                     </div>
-                    <h1 style={{ fontSize: '40px', fontWeight: 'bold', margin: '0 0 30px 0', fontFamily: 'times new roman', color: '#fff' }}>
+                    <h1 className="main-heading">
                         CHỨNG KHOÁN BỀN VỮNG
                     </h1>
-                    <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#d0e0f0' }}>
+                    <p className="hero-description">
                         "Mọi người được ngồi dưới bóng râm ngày hôm nay là bởi có người đã trồng cây rất lâu trước đó" - Warren Buffett
                     </p>
                 </div>

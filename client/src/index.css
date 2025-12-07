@@ -299,26 +299,96 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+
+    /* Page Layout - Move Sidebar to bottom */
+    #page {
+        flex-direction: column !important;
+        margin-left: 0 !important;
+        /* Reset margin */
+        padding: 20px !important;
+    }
+
+    #content.article {
+        order: 1;
+        width: 100% !important;
+    }
+
+    #secondary {
+        order: 2;
+        width: 100% !important;
+        flex: none !important;
+        margin-top: 40px !important;
+    }
+
+    /* Post List Redesign */
     .post.excerpt {
         flex-direction: column !important;
-        gap: 15px !important;
+        height: auto !important;
+        /* Allow auto height */
+        margin-bottom: 30px !important;
+        border: 1px solid #eee !important;
+        /* Restore full border */
+        border-radius: 8px !important;
+        /* Add rounded corners */
+        padding-bottom: 30px !important;
+        overflow: hidden;
+        /* Ensure content stays within border */
+    }
+
+    .post.excerpt:last-child {
+        border-bottom: 1px solid #eee !important;
+        /* Keep border for last item too */
     }
 
     .post.excerpt .featured-thumbnail-container {
         max-width: 100% !important;
         width: 100% !important;
         flex: none !important;
+        height: auto !important;
+        margin-bottom: 15px !important;
     }
 
     .post.excerpt .blog-featured-thumbnail {
-        height: 220px !important;
+        height: 200px !important;
+        /* Fixed height for image */
+        width: 100% !important;
+        border-radius: 8px !important;
+    }
+
+    .post.excerpt .thumbnail-post-content {
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .post.excerpt .title {
+        margin-bottom: 5px !important;
+    }
+
+    .post.excerpt .title a {
+        font-size: 18px !important;
+        line-height: 1.4 !important;
+    }
+
+    .post.excerpt .entry-meta {
+        font-size: 12px !important;
+        color: #999 !important;
+        margin-bottom: 10px !important;
+        font-style: italic !important;
+    }
+
+    .post.excerpt .post-content {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        color: #666 !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* Limit text lines */
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 }
 
-.post.excerpt .blog-featured-thumbnail {
-    height: 220px !important;
-}
-}
 
 /* Single Post Layout Fixes */
 .single-post {
