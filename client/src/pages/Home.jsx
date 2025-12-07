@@ -36,6 +36,7 @@ const Home = () => {
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
             setPage(newPage);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
