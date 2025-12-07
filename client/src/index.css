@@ -356,8 +356,11 @@
     }
 
     .post.excerpt .thumbnail-post-content {
-        padding: 0 !important;
+        padding: 0 15px !important;
+        /* Add padding to sides */
         width: 100% !important;
+        box-sizing: border-box !important;
+        /* Ensure padding doesn't affect width */
     }
 
     .post.excerpt .title {
