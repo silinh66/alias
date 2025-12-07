@@ -42,10 +42,10 @@ const PostDetail = () => {
                     </div>
 
                     <div className="post-footer" style={{ marginTop: '0', paddingTop: '0' }}>
-                        <div className="post-stats" style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', color: '#666', fontSize: '14px' }}>
+                        {/* <div className="post-stats" style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', color: '#666', fontSize: '14px' }}>
                             <i className="fa fa-bar-chart" style={{ marginRight: '8px' }}></i>
                             <span>Lượt xem: {post.views ? post.views.toLocaleString('vi-VN') : 0}</span>
-                        </div>
+                        </div> */}
 
                         {post.relatedPosts && post.relatedPosts.length > 0 && (
                             <div className="related-posts">
