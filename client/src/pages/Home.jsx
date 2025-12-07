@@ -33,10 +33,13 @@ const Home = () => {
         fetchPosts();
     }, [page, slug]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [page, slug]);
+
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
             setPage(newPage);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
