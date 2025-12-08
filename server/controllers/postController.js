@@ -7,7 +7,7 @@ exports.getAllPosts = async (req, res) => {
         const offset = (page - 1) * limit;
         const categorySlug = req.query.category_slug;
 
-        let query = 'SELECT p.*, c.name as category_name, u.username as author_name FROM posts p LEFT JOIN categories c ON p.category_id = c.id LEFT JOIN users u ON p.author_id = u.id';
+        let query = 'SELECT p.id, p.title, p.slug, p.excerpt, p.thumbnail_url, p.views, p.created_at, p.category_id, p.author_id, c.name as category_name, u.username as author_name FROM posts p LEFT JOIN categories c ON p.category_id = c.id LEFT JOIN users u ON p.author_id = u.id';
         let countQuery = 'SELECT COUNT(*) as count FROM posts p LEFT JOIN categories c ON p.category_id = c.id';
         const params = [];
         const countParams = [];
