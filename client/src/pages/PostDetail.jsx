@@ -38,7 +38,7 @@ const PostDetail = () => {
                         {new Date(post.created_at).toLocaleDateString('vi-VN')}
                     </div>
                     <div className="post-content">
-                        {parse(post.content)}
+                        {parse(post.content || '')}
                     </div>
 
                     <div className="post-footer" style={{ marginTop: '0', paddingTop: '0' }}>

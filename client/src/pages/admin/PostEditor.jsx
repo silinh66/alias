@@ -44,7 +44,7 @@ const PostEditor = () => {
                         setTitle(post.title);
                         setSlug(post.slug);
                         setExcerpt(post.excerpt);
-                        setContent(post.content);
+                        setContent(post.content || '');
                         setThumbnailUrl(post.thumbnail_url);
                         setPdfUrl(post.pdf_url || '');
                         setCategoryId(post.category_id);
