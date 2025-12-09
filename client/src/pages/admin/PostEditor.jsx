@@ -39,6 +39,7 @@ const PostEditor = () => {
             const fetchPost = async () => {
                 try {
                     const res = await axios.get(`${API_URL}/api/posts/id/${id}`);
+                    console.log('Fetched post data:', res.data);
                     const post = res.data;
                     if (post) {
                         setTitle(post.title);
