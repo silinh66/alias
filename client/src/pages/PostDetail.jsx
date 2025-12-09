@@ -52,7 +52,14 @@ const PostDetail = () => {
                         {new Date(post.created_at).toLocaleDateString('vi-VN')}
                     </div>
                     <div className="post-content">
-                        {parse(post.content || '')}
+                        {parse(post.content || '', {
+                            replace: (domNode) => {
+                                if (domNode.name === 'img') {
+                                    const props = { ...domNode.attribs, loading: 'lazy', decoding: 'async' };
+                                    return <img {...props} />;
+                                }
+                            }
+                        })}
                     </div>
 
                     <div className="post-footer" style={{ marginTop: '0', paddingTop: '0' }}>
@@ -72,6 +79,8 @@ const PostDetail = () => {
                                                     <img
                                                         src={related.thumbnail_url && related.thumbnail_url.startsWith('http') ? related.thumbnail_url : `${API_URL}${related.thumbnail_url}`}
                                                         alt={related.title}
+                                                        loading="lazy"
+                                                        decoding="async"
                                                         style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s' }}
                                                     />
                                                 </div>

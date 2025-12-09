@@ -21,6 +21,8 @@ const PostEditor = () => {
     const [categoryId, setCategoryId] = useState('');
     const [categories, setCategories] = useState([]);
 
+    const [isSaving, setIsSaving] = useState(false);
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -84,6 +86,9 @@ const PostEditor = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (isSaving) return;
+
+        setIsSaving(true);
         const token = localStorage.getItem('token');
         const data = { title, slug, excerpt, content, thumbnail_url: thumbnailUrl, category_id: categoryId, pdf_url: pdfUrl };
 
@@ -101,6 +106,7 @@ const PostEditor = () => {
         } catch (err) {
             console.error(err);
             alert('Failed to save post');
+            setIsSaving(false);
         }
     };
 
@@ -142,7 +148,20 @@ const PostEditor = () => {
                     <label>Content</label>
                     <ReactQuill value={content} onChange={setContent} />
                 </div>
-                <button type="submit" style={{ padding: '10px 20px', background: 'blue', color: '#fff', border: 'none' }}>Save</button>
+                <button
+                    type="submit"
+                    disabled={isSaving}
+                    style={{
+                        padding: '10px 20px',
+                        background: isSaving ? '#ccc' : 'blue',
+                        color: '#fff',
+                        border: 'none',
+                        cursor: isSaving ? 'not-allowed' : 'pointer',
+                        opacity: isSaving ? 0.7 : 1
+                    }}
+                >
+                    {isSaving ? 'Saving...' : 'Save'}
+                </button>
             </form>
         </div>
     );
