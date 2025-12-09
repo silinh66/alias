@@ -42,10 +42,13 @@ const fs = require('fs');
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Inject OG tags for post details
+// Inject OG tags for post details
 app.get('/post/:slug', async (req, res) => {
     try {
         const { slug } = req.params;
+        console.log(`[DEBUG] Request for post slug: ${slug}`);
         const [posts] = await db.query('SELECT * FROM posts WHERE slug = ?', [slug]);
+        console.log(`[DEBUG] Found ${posts.length} posts for slug: ${slug}`);
 
         const filePath = path.resolve(__dirname, '../client/dist/index.html');
         let html = fs.readFileSync(filePath, 'utf8');
@@ -58,6 +61,8 @@ app.get('/post/:slug', async (req, res) => {
                 ? post.thumbnail_url
                 : `${process.env.API_URL || 'https://chungkhoanbenvung.com'}${post.thumbnail_url}`;
 
+            console.log(`[DEBUG] Injecting OG tags: Title="${title}", Image="${image}"`);
+
             // Replace placeholder or inject tags
             html = html.replace('<title>Chứng khoán bền vững</title>', `<title>${title}</title>`);
             html = html.replace('</head>', `
@@ -67,6 +72,8 @@ app.get('/post/:slug', async (req, res) => {
                 <meta property="og:url" content="https://chungkhoanbenvung.com/post/${slug}" />
                 <meta property="og:type" content="article" />
                 </head>`);
+        } else {
+            console.log(`[DEBUG] No post found for slug: ${slug}`);
         }
 
         res.send(html);
