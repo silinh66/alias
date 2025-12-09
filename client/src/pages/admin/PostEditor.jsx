@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -9,7 +9,9 @@ import { API_URL } from '../../config';
 const PostEditor = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const isEdit = !!id;
+    const fromPage = location.state?.fromPage || 1;
 
     const [title, setTitle] = useState('');
     const [slug, setSlug] = useState('');
@@ -102,7 +104,7 @@ const PostEditor = () => {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }
-            navigate('/admin/dashboard');
+            navigate('/admin/dashboard', { state: { page: fromPage } });
         } catch (err) {
             console.error(err);
             alert('Failed to save post');

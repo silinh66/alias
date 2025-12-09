@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { API_URL } from '../../config';
 
 const Dashboard = () => {
     const [posts, setPosts] = useState([]);
-    const [page, setPage] = useState(1);
+
     const [totalPages, setTotalPages] = useState(1);
     const navigate = useNavigate();
+    const location = useLocation();
+    const [page, setPage] = useState(location.state?.page || 1);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -73,7 +75,7 @@ const Dashboard = () => {
                             <td style={{ border: '1px solid #ccc', padding: '10px' }}>{post.id}</td>
                             <td style={{ border: '1px solid #ccc', padding: '10px' }}>{post.title}</td>
                             <td style={{ border: '1px solid #ccc', padding: '10px' }}>
-                                <Link to={`/admin/edit/${post.id}`} style={{ marginRight: '10px' }}>Edit</Link>
+                                <Link to={`/admin/edit/${post.id}`} state={{ fromPage: page }} style={{ marginRight: '10px' }}>Edit</Link>
                                 <button onClick={() => handleDelete(post.id)} style={{ color: 'red' }}>Delete</button>
                             </td>
                         </tr>
