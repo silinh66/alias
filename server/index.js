@@ -77,7 +77,8 @@ app.get('/post/:slug', async (req, res) => {
 });
 
 // Catch-all route to serve index.html
-app.get('*', (req, res) => {
+// Catch-all route to serve index.html
+app.get(/(.*)/, (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
