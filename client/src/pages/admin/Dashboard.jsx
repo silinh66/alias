@@ -5,6 +5,8 @@ import { API_URL } from '../../config';
 
 const Dashboard = () => {
     const [posts, setPosts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,15 +18,16 @@ const Dashboard = () => {
 
         const fetchPosts = async () => {
             try {
-                const res = await axios.get(`${API_URL}/api/posts`);
+                const res = await axios.get(`${API_URL}/api/posts?page=${page}`);
                 setPosts(res.data.posts);
+                setTotalPages(res.data.totalPages);
             } catch (err) {
                 console.error(err);
             }
         };
 
         fetchPosts();
-    }, [navigate]);
+    }, [navigate, page]);
 
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure?')) return;
@@ -40,6 +43,14 @@ const Dashboard = () => {
         }
     };
 
+    const handlePrevPage = () => {
+        if (page > 1) setPage(page - 1);
+    };
+
+    const handleNextPage = () => {
+        if (page < totalPages) setPage(page + 1);
+    };
+
     return (
         <div style={{ padding: '20px' }}>
             <h1>Admin Dashboard</h1>
@@ -47,7 +58,7 @@ const Dashboard = () => {
                 <Link to="/admin/create" style={{ display: 'inline-block', marginRight: '10px', padding: '10px', background: 'green', color: '#fff', textDecoration: 'none' }}>Create New Post</Link>
                 <Link to="/admin/categories" style={{ display: 'inline-block', padding: '10px', background: '#333', color: '#fff', textDecoration: 'none' }}>Manage Categories</Link>
             </div>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
                 <thead>
                     <tr>
                         <th style={{ border: '1px solid #ccc', padding: '10px' }}>ID</th>
@@ -69,6 +80,24 @@ const Dashboard = () => {
                     ))}
                 </tbody>
             </table>
+
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+                <button
+                    onClick={handlePrevPage}
+                    disabled={page === 1}
+                    style={{ padding: '10px', cursor: page === 1 ? 'not-allowed' : 'pointer' }}
+                >
+                    Previous
+                </button>
+                <span>Page {page} of {totalPages}</span>
+                <button
+                    onClick={handleNextPage}
+                    disabled={page === totalPages}
+                    style={{ padding: '10px', cursor: page === totalPages ? 'not-allowed' : 'pointer' }}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 };
