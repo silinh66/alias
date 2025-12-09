@@ -38,8 +38,8 @@ const PostEditor = () => {
         if (isEdit) {
             const fetchPost = async () => {
                 try {
-                    const res = await axios.get(`${API_URL}/api/posts`);
-                    const post = res.data.posts.find(p => p.id === parseInt(id));
+                    const res = await axios.get(`${API_URL}/api/posts/id/${id}`);
+                    const post = res.data;
                     if (post) {
                         setTitle(post.title);
                         setSlug(post.slug);

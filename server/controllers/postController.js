@@ -64,6 +64,23 @@ exports.getPostBySlug = async (req, res) => {
     }
 };
 
+exports.getPostById = async (req, res) => {
+    try {
+        const [posts] = await db.query(
+            'SELECT * FROM posts WHERE id = ?',
+            [req.params.id]
+        );
+
+        if (posts.length === 0) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        res.json(posts[0]);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
 exports.createPost = async (req, res) => {
     const { title, slug, excerpt, content, thumbnail_url, category_id, pdf_url } = req.body;
     const author_id = req.userId;
