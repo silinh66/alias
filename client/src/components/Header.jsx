@@ -12,17 +12,18 @@ const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const industryAnalysisCategories = [
+        'Ngành chứng khoán',
+        'Ngành bất động sản',
+        'Ngành ngân hàng',
+        'Ngành Bán lẻ',
+        'Ngành thép',
+        'Ngành dầu khí',
         'Bất động sản KCN',
         'Năng lượng',
         'Ngành bảo hiểm',
-        'Ngành bất động sản',
         'Ngành cao su',
-        'Ngành chứng khoán',
-        'Ngành dầu khí',
         'Ngành dệt may',
-        'Ngành ngân hàng',
         'Ngành phân đạm',
-        'Ngành thép',
         'Ngành vận tải – cảng biển',
         'Ngành xây dựng – VLXĐ',
         'Thủy sản'
@@ -79,7 +80,7 @@ const Header = () => {
                 </button>
                 {isOpen && (
                     <div className="dropdown-content">
-                        {items.sort(() => Math.random() - 0.5).map(item => (
+                        {items.map(item => (
                             <Link
                                 key={item.id}
                                 to={`/category/${item.slug}`}
@@ -94,7 +95,11 @@ const Header = () => {
         );
     };
 
-    const groupedCategories = categories.filter(c => industryAnalysisCategories.includes(c.name));
+    const groupedCategories = categories
+        .filter(c => industryAnalysisCategories.includes(c.name))
+        .sort((a, b) => {
+            return industryAnalysisCategories.indexOf(a.name) - industryAnalysisCategories.indexOf(b.name);
+        });
 
     const topLevelCategoryNames = [
         'Khuyến nghị cổ phiếu',

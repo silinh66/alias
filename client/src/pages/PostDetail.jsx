@@ -6,6 +6,8 @@ import Sidebar from '../components/Sidebar';
 
 import { API_URL } from '../config';
 
+import { Helmet } from 'react-helmet-async';
+
 const PostDetail = () => {
     const { slug } = useParams();
     const [post, setPost] = useState(null);
@@ -29,8 +31,20 @@ const PostDetail = () => {
     if (loading) return <div>Loading...</div>;
     if (!post) return <div>Post not found</div>;
 
+    const metaDescription = post.excerpt ? post.excerpt.substring(0, 160) : '';
+    const metaImage = post.thumbnail_url && post.thumbnail_url.startsWith('http') ? post.thumbnail_url : `${API_URL}${post.thumbnail_url}`;
+
     return (
         <div id="page" className="single-page">
+            <Helmet>
+                <title>{post.title} - Chứng khoán bền vững</title>
+                <meta name="description" content={metaDescription} />
+                <meta property="og:title" content={post.title} />
+                <meta property="og:description" content={metaDescription} />
+                <meta property="og:image" content={metaImage} />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:type" content="article" />
+            </Helmet>
             <div id="content" className="article">
                 <article className="post single-post">
                     <h1 className="title single-title">{post.title}</h1>

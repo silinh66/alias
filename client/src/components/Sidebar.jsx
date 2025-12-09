@@ -43,7 +43,23 @@ const Sidebar = () => {
                                                     'Bài học đầu tư',
                                                     'Mở tài khoản chứng khoán'
                                                 ].includes(cat.name))
-                                                .sort(() => Math.random() - 0.5)
+                                                .sort((a, b) => {
+                                                    const priorityOrder = [
+                                                        'Ngành chứng khoán',
+                                                        'Ngành bất động sản',
+                                                        'Ngành ngân hàng',
+                                                        'Ngành Bán lẻ',
+                                                        'Ngành thép',
+                                                        'Ngành dầu khí'
+                                                    ];
+                                                    const indexA = priorityOrder.indexOf(a.name);
+                                                    const indexB = priorityOrder.indexOf(b.name);
+
+                                                    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+                                                    if (indexA !== -1) return -1;
+                                                    if (indexB !== -1) return 1;
+                                                    return a.name.localeCompare(b.name);
+                                                })
                                                 .map(cat => (
                                                     <li key={cat.id} className="cat-item">
                                                         <Link to={`/category/${cat.slug}`} style={{ textTransform: 'uppercase' }}>{cat.name}</Link>
